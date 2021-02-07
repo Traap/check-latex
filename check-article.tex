@@ -1,5 +1,40 @@
-\documentclass{article}
-   \begin{document}
-   Hello \LaTeX\
-   \end{document}
-\end{document}
+\documentclass{article}%
+
+\usepackage{catchfile}%
+
+\newcommand{\tlcVspace}{\vspace{3mm}}%
+
+\newcommand{\tlcGetEnv}[2][]{%
+  \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+  \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}%
+
+\tlcGetEnv[\home]{HOME}%
+\tlcGetEnv[\amberPath]{AMBERPATH}%
+\tlcGetEnv[\autodocPath]{AUTODOCPATH}%
+\tlcGetEnv[\emendPath]{EMENDPATH}%
+\tlcGetEnv[\newdocPath]{NEWDOCPATH}%
+
+
+\begin{document}%
+
+\section{Environment Variables}
+Hello \LaTeX!
+
+\tlcVspace
+
+Home: [\home]
+\tlcVspace
+
+AMBERPATH: [\amberPath]
+\tlcVspace
+
+AUTODOCPATH: [\autodocPath]
+\tlcVspace
+
+EMENDPATH: [\emendPath]
+\tlcVspace
+
+NEWDOCPATH: [\newdocPath]
+\tlcVspace
+
+\end{document}%
