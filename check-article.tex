@@ -5,8 +5,19 @@
 \newcommand{\tlcVspace}{\vspace{3mm}}%
 
 \newcommand{\tlcGetEnv}[2][]{%
-  \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
-  \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}%
+  \CatchFileEdef%
+    {\temp}%
+    {"|kpsewhich --var-value #2 2>/dev/null"}{\endlinechar=-1}%
+  \if%
+    \relax%
+     \detokenize{#1}
+     \relax%
+     \temp%
+  \else%
+    \let#1
+    \temp%
+   \fi%
+}%
 
 \tlcGetEnv[\home]{HOME}%
 \tlcGetEnv[\amberPath]{AMBERPATH}%
