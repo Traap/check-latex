@@ -26,6 +26,7 @@
 
   \getEnv[\texDist]{TEXMFDIST}%
   \getEnv[\wsl]{WSL_DISTRO_NAME}%
+  \getEnv[\autodocPath]{AUTODOCPATH}%
 
 % The document
 \begin{document}%
@@ -39,6 +40,7 @@ Confirm \textbf{echoValues} \& \textbf{getEnv} commands work.
 \begin{itemize}%
   \item \echoValues{TEXMFDIST}{\texDist}%
   \item \echoValues{WSL\_DISTRO\_NAME}{\wsl}%
+  \item \echoValues{AUTODOCPATH}{\autodocPath}%
 \end{itemize}
 
 \section{Installation Steps \& Side-effects}%
