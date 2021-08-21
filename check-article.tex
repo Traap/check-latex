@@ -2,27 +2,21 @@
 
   % Document preamble.
   \usepackage{catchfile}%
+  \usepackage{dirtree}%
+  \usepackage{forest}%
 
   \newcommand{\getEnv}[2][]{%
     \CatchFileEdef%
       {\temp}%
       {"|kpsewhich --var-value #2 2>/dev/null"}{\endlinechar=-1}%
     \if%
-      \relax%
-      \detokenize{#1}
-      \relax%
-      \temp%
+      \relax\detokenize{#1}\relax\temp%
     \else%
-      \let#1
-      \temp%
+      \let#1\temp%
     \fi%
   }%
 
-  \newcommand{\echoValues}[2]{%
-    \textbf{#1:}%
-    \newline%
-    [#2]%
-  }%
+  \newcommand{\echoValues}[2]{\textbf{#1:}\newline[#2]}%
 
   \getEnv[\texDist]{TEXMFDIST}%
   \getEnv[\wsl]{WSL_DISTRO_NAME}%
@@ -43,55 +37,49 @@ Confirm \textbf{echoValues} \& \textbf{getEnv} commands work.
   \item \echoValues{AUTODOCPATH}{\autodocPath}%
 \end{itemize}
 
-\section{Installation Steps \& Side-effects}%
-\begin{enumerate}%
-  \item Ubuntu 20.04 installed into Windows Subsystem for Linux does not have
-    graphical support.  miktex-console is not an option.
+\section{dirtree package}%
+\dirtree{%
+.1 nvim.
+.2 init.lua.
+.2 LICENSE.
+.2 lua.
+.3 bootstrap.lua.
+.3 plugins.lua.
+.3 traap.
+.4 chalk-base16.lua.
+.4 compe-completion.lua.
+.4 hightlights.lua.
+.4 init.lua.
+.4 keybindings.lua.
+.4 language-servers.lua.
+.4 nvim-tree.lua.
+.4 nvim-web-devicons.lua.
+.4 os-check.lua.
+.4 settings.lua.
+.4 telescope-nvim.lua.
+.4 treesitter-nvim.lua.
+.4 wiki-vim.lua.
+.2 package-lock.json.
+.2 README.md.
+.3 en.utf-8.add.
+.3 en.utf-8.add.spl.
+}%
 
-  \item TexLive was completely removed from Ubuntu 20.04 post installation
+\section{forest package}%
+\begin{forest} baseline, for tree=draw
+  [Head Coach
+    [Offensive Coordinator
+      [Quarterbacks]
+      [Offensive Line]
+      [Running backs]
+      [Receivers]
+    ]
+    [Defensive Coordinator
+      [Special Teams]
+      [Line backers]
+      [Corners \& Safeties]
+    ]
+  ]
+\end{forest}
 
-  \item MiKTeX Installation using ubuntu focal universe
-
-  \begin{enumerate}%
-    \item sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
-
-    \item sudo apt-get update 
-
-    \item sudo apt-get -y install miktex latexmk
-
-    \item sudo miktexsetup --shared=yes finish was done
-
-    \item sudo initexmf --admin --set-config-value [MPM]AutoInstall=1
-
-    \item sudo mpm --admin --update
-  \end{enumerate}%
-
-
-  \item Post installation checks with this document.
-  \begin{enumerate} 
-
-    \item Document built with \textbf{kpsewhich} error.  Side-effects are
-      seen in section \ref{sec:side-effects}.
-
-    \item kpsewhich complains an MiKTeX administrator has not checked for
-      updates.
-
-    \item \textbf{kpsewhich --var-value HOME 2\>/dev/null} silences kpsewhich from
-      the shell.  This is desired behavior.
-  \end{enumerate}%
-
-
-\item Questions
-  \begin{enumerate} 
-
-    \item How does one address: \textbf{major issue: So far, no MiKTeX
-      administrator has checked for updates} without \textbf{miktex-console}?
-
-    \item Why is \textbf{kpsewhich} reporting this error?
-
-
-  \end{enumerate}%
-
-
-\end{enumerate}%
 \end{document}%
